@@ -2,7 +2,7 @@
 
 ## [CI/CD Examples](./ci-cd/)
 
-Collection of Probe CI/CD templates for conintous scanning of your Generative AI applications
+Collection of Probe CI/CD templates for conintous scanning of your Generative AI applications.
 
 ## [Integrations](./integrations)
 
