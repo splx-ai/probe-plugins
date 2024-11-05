@@ -10,3 +10,6 @@ This repository contains CI/CD specific examples of how to run a Test with Splx 
   - [GitHub](./GitHub)
   - [GitLab](./GitLab)
   - [Jenkins](./Jenkins)
+
+## Genric Examples
+  - [Python](./python)
