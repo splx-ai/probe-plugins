@@ -1,9 +1,9 @@
-# probe-plugins
+![Logo](https://framerusercontent.com/images/YGRPW6ijSan06UXm0WkkLWAg5GQ.svg)  
 
-Collection of plugins for Probe
+## [CI/CD Examples](./ci-cd/)
 
-## Content
+Collection of Probe CI/CD templates for conintous scanning of your Generative AI applications
 
-### Integrations
+## [Integrations](./integrations)
 
 Collection of template scripts to help you integrate Probe with your Chatbot.
