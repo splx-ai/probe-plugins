@@ -12,4 +12,4 @@ This repository contains CI/CD specific examples of how to run a Test with Splx 
   - [Jenkins](./Jenkins)
 
 ## Genric Examples
-  - [Python](./python)
+  - [Bash](./generic)
