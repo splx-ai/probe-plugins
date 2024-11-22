@@ -58,7 +58,7 @@ jobs:
               REQUEST_BODY=$(cat <<-EOF
                   {
                       "targetId": $SPLXAI_TARGET_ID,
-                      "probeIds": [8],
+                      "probeIds": [1],
                       "name": "GitHub CI/CD Test Run"
                   }
               EOF
