@@ -36,8 +36,8 @@ splxai-test:
     REQUEST_BODY=$(cat <<-EOF
         {
             "targetId": $SPLXAI_TARGET_ID,
-            "probeIds": [1], # add required Probes
-            "name": "SplxAI Test Run"
+            "probeIds": [1],
+            "name": "GitLab CI/CD Test Run"
         }
     EOF
     )
