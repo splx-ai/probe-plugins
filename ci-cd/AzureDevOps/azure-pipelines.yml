@@ -4,7 +4,7 @@
 # SplxAI Probe will test your GenAI application to detect vulnerabilities and provide remediation.
 #
 # It is recomended to create a new API key with a descriptive name
-# The following values should be added as environment variables with email and key being secrets
+# The following values should be added as environment variables with the key being secret
 #    SPLXAI_TARGET_ID: the Target ID of the pre defined Target, from SplxAI Probe, Target Settings
 #    SPLXAI_API_KEY: the API key generated from SplxAI Probe, Account Settings
 #    SPLXAI_PLATFORM_URL: the SplxAI url that you login to (e.g https://probe.splx.ai/ or https://us.probe.splx.ai/)
