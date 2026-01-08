@@ -5,7 +5,7 @@
     REQUEST_BODY=$(cat <<-EOF
         {
             "targetId": $SPLXAI_TARGET_ID,
-            "probeIds": [1], # add required Probes
+            "probeIds": $SPLXAI_PROBE_IDS, # add required Probes in the list, e.g [1,2,3]
             "name": "SplxAI Test Run"
         }
     EOF
