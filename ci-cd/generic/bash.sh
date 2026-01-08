@@ -26,4 +26,4 @@
     
     echo "###### Triggered SplxAI Test Run #######"
     echo "=> Click on the link below to see the Test Run results"
-    echo "=> https://probe.splx.ai/w/$SPLXAI_WORKSPACE_ID/target/$SPLXAI_TARGET_ID/test-runs/$TEST_RUN_ID"
+    echo "=> $SPLXAI_PLATFORM_URL/w/$SPLXAI_WORKSPACE_ID/target/$SPLXAI_TARGET_ID/test-runs/$TEST_RUN_ID"
