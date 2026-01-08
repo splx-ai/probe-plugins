@@ -23,7 +23,7 @@ pipeline {
   environment {
     SPLXAI_TARGET_ID = 000
     SPLXAI_WORKSPACE_ID = 000
-    SPLXAI_PROBE_IDS = [1]
+    SPLXAI_PROBE_IDS = "[1]"
     SPLXAI_PLATFORM_URL = "https://probe.splx.ai"
     SPLXAI_API_URL = "https://api.probe.splx.ai"
    }

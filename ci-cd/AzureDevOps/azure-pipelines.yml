@@ -29,7 +29,7 @@ variables:
   - name: SPLXAI_WORKSPACE_ID
     value: 000
   - name: SPLXAI_PROBE_IDS
-    value: [1]
+    value: "[1]"
   - name: SPLXAI_PLATFORM_URL
     value: "https://probe.splx.ai"
   - name: SPLXAI_API_URL
