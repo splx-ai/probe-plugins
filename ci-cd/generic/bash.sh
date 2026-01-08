@@ -12,7 +12,7 @@
     )
 
     RESPONSE=$(curl -s --request POST \
-      --url $SPLXAI_API_URL/api/v2/test-run/trigger \
+      --url $SPLXAI_API_URL/api/workspaces/$SPLXAI_WORKSPACE_ID/test-run/trigger \
       --header 'Content-Type: application/json' \
       --header "X-Api-Key: $SPLXAI_API_KEY" \
       --data "$REQUEST_BODY")
@@ -26,4 +26,4 @@
     
     echo "###### Triggered SplxAI Test Run #######"
     echo "=> Click on the link below to see the Test Run results"
-    echo "=> https://probe.splx.ai/target/$SPLXAI_TARGET_ID/test-run-history/$TEST_RUN_ID"
+    echo "=> https://probe.splx.ai/w/$SPLXAI_WORKSPACE_ID/target/$SPLXAI_TARGET_ID/test-runs/$TEST_RUN_ID"
