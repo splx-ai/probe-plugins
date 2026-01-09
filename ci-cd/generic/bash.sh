@@ -1,20 +1,20 @@
     apt-get -qq update
     apt-get install -y jq
     
-    echo "###### Start SplxAI Test Run #######"
+    echo "###### Start SPLX Test Run #######"
     REQUEST_BODY=$(cat <<-EOF
         {
-            "targetId": $SPLXAI_TARGET_ID,
-            "probeIds": [1], # add required Probes
-            "name": "SplxAI Test Run"
+            "targetId": $SPLX_TARGET_ID,
+            "probeIds": $SPLX_PROBE_IDS, # add required Probes in the list, e.g [1,2,3]
+            "name": "SPLX Test Run"
         }
     EOF
     )
 
     RESPONSE=$(curl -s --request POST \
-      --url $SPLXAI_API_URL/api/v2/test-run/trigger \
+      --url $SPLX_API_URL/api/workspaces/$SPLX_WORKSPACE_ID/test-run/trigger \
       --header 'Content-Type: application/json' \
-      --header "X-Api-Key: $SPLXAI_API_KEY" \
+      --header "X-Api-Key: $SPLX_API_KEY" \
       --data "$REQUEST_BODY")
     
     TEST_RUN_ID=$(echo $RESPONSE | jq -r '.testRunId')
@@ -24,6 +24,6 @@
       exit 1
     fi
     
-    echo "###### Triggered SplxAI Test Run #######"
+    echo "###### Triggered SPLX Test Run #######"
     echo "=> Click on the link below to see the Test Run results"
-    echo "=> https://probe.splx.ai/target/$SPLXAI_TARGET_ID/test-run-history/$TEST_RUN_ID"
+    echo "=> $SPLX_PLATFORM_URL/w/$SPLX_WORKSPACE_ID/target/$SPLX_TARGET_ID/test-runs/$TEST_RUN_ID"

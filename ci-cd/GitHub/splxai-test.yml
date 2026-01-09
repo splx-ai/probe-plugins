@@ -1,39 +1,42 @@
-# ******** SplxAI Probe Template for Github CI ********
+# ******** SPLX Probe Template for Github CI ********
 #
 # ******** Description ********
-# SplxAI Probe will test your GenAI application to detect vulnerabilities and provide remediation.
+# SPLX Probe will test your GenAI application to detect vulnerabilities and provide remediation.
 #
 # It is recomended to create a new API key with a descriptive name
 #
 # The following values should be added as environment variables with the key being secret
-#    SPLXAI_TARGET_ID: the Target ID of the pre defined Target, from SplxAI Probe, Target Settings
-#    SPLXAI_API_KEY: the API key generated from SplxAI Probe, Account Settings
-#    SPLXAI_PLATFORM_URL: the SplxAI url that you login to (e.g https://probe.splx.ai/ or https://us.probe.splx.ai/)
-#    SPLXAI_API_URL: the SplxAI url that you login to (e.g https://api.probe.splx.ai/ or https://api.us.probe.splx.ai/)
+#    SPLX_TARGET_ID: the Target ID of the pre defined Target, from SPLX Probe, Target Settings
+#    SPLX_WORKSPACE_ID: the Workspace ID of the pre defined Target, from SPLX Probe (can be found in the URL when viewing the Target - e.g 163 in https://probe.splx.ai/w/163/target/000)
+#    SPLX_PROBE_IDS: list of Probe IDs to run, from SPLX Probe, Probe Settings, Details
+#    SPLX_API_KEY: the API key generated from SPLX Probe, Account Settings
+#    SPLX_PLATFORM_URL: the SPLX url that you login to (e.g https://probe.splx.ai/ or https://us.probe.splx.ai/)
+#    SPLX_API_URL: the SPLX url that you login to (e.g https://api.probe.splx.ai/ or https://api.us.probe.splx.ai/)
 #
 # For more configuration options, please check the technical documentation portal:
 # 📚 https://probe.splx.ai/probe-documentation
 #
 
-name: SplxAI Test
+name: SPLX Test
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
-    SPLXAI_TARGET_ID: 000
-    # SPLXAI_API_KEY: .... # Defined as a secret variable: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
-    SPLXAI_PLATFORM_URL: "https://probe.splx.ai"
-    SPLXAI_API_URL: "https://api.probe.splx.ai"
-
+  SPLX_TARGET_ID: 000
+  SPLX_WORKSPACE_ID: 000
+  SPLX_PROBE_IDS: "[1]"
+  # SPLX_API_KEY: .... # Defined as a secret variable: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+  SPLX_PLATFORM_URL: "https://probe.splx.ai"
+  SPLX_API_URL: "https://api.probe.splx.ai"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -48,40 +51,40 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a set of commands using the runners shell
-      - name: SplxAI Test
+      - name: SPLX Test
         env:
-          SPLXAI_API_KEY: ${{ secrets.SPLXAI_API_KEY }}
+          SPLX_API_KEY: ${{ secrets.SPLX_API_KEY }}
         run: |
-              sudo apt-get -qq update
-              sudo apt-get install -y jq
-              
-              echo "###### Start SplxAI Test Run #######"
-              REQUEST_BODY=$(cat <<-EOF
-                  {
-                      "targetId": $SPLXAI_TARGET_ID,
-                      "probeIds": [1],
-                      "name": "GitHub CI/CD Test Run"
-                  }
-              EOF
-              )
+          sudo apt-get -qq update
+          sudo apt-get install -y jq
 
-              echo $REQUEST_BODY
-          
-              RESPONSE=$(curl -s --request POST \
-                --url $SPLXAI_API_URL/api/v2/test-run/trigger \
-                --header 'Content-Type: application/json' \
-                --header "X-Api-Key: $SPLXAI_API_KEY" \
-                --data "$REQUEST_BODY")
+          echo "###### Start SPLX Test Run #######"
+          REQUEST_BODY=$(cat <<-EOF
+              {
+                  "targetId": $SPLX_TARGET_ID,
+                  "probeIds": $SPLX_PROBE_IDS,
+                  "name": "GitHub CI/CD Test Run"
+              }
+          EOF
+          )
 
-              echo $RESPONSE
-              
-              TEST_RUN_ID=$(echo $RESPONSE | jq -r '.testRunId')
-              if [ -z "$TEST_RUN_ID" ]; then
-                echo "Error: Failed to trigger Test Run!"
-                echo "Response: $RESPONSE"
-                exit 1
-              fi
-              
-              echo "###### Triggered SplxAI Test Run #######"
-              echo "=> Click on the link below to see the Test Run results"
-              echo "=> https://probe.splx.ai/target/$SPLXAI_TARGET_ID/test-run-history/$TEST_RUN_ID"
+          echo $REQUEST_BODY
+
+          RESPONSE=$(curl -s --request POST \
+            --url $SPLX_API_URL/api/workspaces/$SPLX_WORKSPACE_ID/test-run/trigger \
+            --header 'Content-Type: application/json' \
+            --header "X-Api-Key: $SPLX_API_KEY" \
+            --data "$REQUEST_BODY")
+
+          echo $RESPONSE
+
+          TEST_RUN_ID=$(echo $RESPONSE | jq -r '.testRunId')
+          if [ -z "$TEST_RUN_ID" ]; then
+            echo "Error: Failed to trigger Test Run!"
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+          echo "###### Triggered SPLX Test Run #######"
+          echo "=> Click on the link below to see the Test Run results"
+          echo "=> $SPLX_PLATFORM_URL/w/$SPLX_WORKSPACE_ID/target/$SPLX_TARGET_ID/test-runs/$TEST_RUN_ID"
